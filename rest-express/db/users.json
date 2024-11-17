@@ -1,7 +1,32 @@
 [
-  { "id": 1, "name": "Andi", "email": "andi@gmail.com", "password": "andi123" },
-  { "id": 2, "name": "Budi", "email": "budi@gmail.com", "password": "budi123" },
-  { "id": 3, "name": "Caca", "email": "caca@gmail.com", "password": "caca123" },
-  { "id": 4, "name": "Edi", "email": "di@gmail.com", "password": "edi123" },
-  { "id": 5, "name": "Fafa", "email": "fafa@gmail.com", "password": "fafa123" }
+  {
+    "id": 1,
+    "name": "Andi",
+    "email": "andi@gmail.com",
+    "password": "andi123"
+  },
+  {
+    "id": 2,
+    "name": "Budi",
+    "email": "budi@gmail.com",
+    "password": "budi123"
+  },
+  {
+    "id": 3,
+    "name": "Caca",
+    "email": "caca@gmail.com",
+    "password": "caca123"
+  },
+  {
+    "id": 4,
+    "name": "Edi",
+    "email": "di@gmail.com",
+    "password": "edi123"
+  },
+  {
+    "id": 5,
+    "name": "Fufu",
+    "email": "fufu@gmail.com",
+    "password": "fufu123"
+  }
 ]

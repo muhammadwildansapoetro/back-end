@@ -15,6 +15,9 @@ export class UserRouter {
         this.router.get('/', this.userController.getUsers)
         this.router.get('/:id', this.userController.getUserId) // '/:id' dynamic routing
         this.router.post('/', this.userController.addUser)
+        this.router.put('/:id', this.userController.putUser)
+        this.router.patch('/:id', this.userController.editUser)
+        this.router.delete('/:id', this.userController.deleteUser)
     }
 
     getRouter(): Router {
