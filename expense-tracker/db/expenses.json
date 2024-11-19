@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "title": "Montly salary",
+    "nominal": 7000000,
+    "type": "income",
+    "category": "salary",
+    "date": "2024-11-25"
+  },
+  {
+    "id": 2,
+    "title": "Commuter line ticket",
+    "nominal": 7000,
+    "type": "expense",
+    "category": "transport",
+    "date": "2024-11-26"
+  },
+  {
+    "id": 3,
+    "title": "Grocery shopping",
+    "nominal": 100000,
+    "type": "expense",
+    "category": "food",
+    "date": "2024-11-26"
+  },
+  {
+    "id": 4,
+    "title": "Project fee",
+    "nominal": 1000000,
+    "type": "income",
+    "category": "salary",
+    "date": "2024-11-27"
+  },
+  {
+    "id": 5,
+    "title": "Car service",
+    "nominal": 500000,
+    "type": "expense",
+    "category": "transport",
+    "date": "2024-11-28"
+  },
+  {
+    "id": 6,
+    "title": "Commuter line ticket",
+    "nominal": 7000,
+    "type": "expense",
+    "category": "transport",
+    "date": "2024-11-29"
+  },
+  {
+    "id": 7,
+    "title": "Coffee and snack",
+    "nominal": 20000,
+    "type": "expense",
+    "category": "food",
+    "date": "2024-11-29"
+  },
+  {
+    "id": 8,
+    "title": "Commuter line ticket",
+    "nominal": 7000,
+    "type": "expense",
+    "category": "transport",
+    "date": "2024-11-30"
+  },
+  {
+    "id": 9,
+    "title": "Lotek lunch",
+    "nominal": 15000,
+    "type": "expense",
+    "category": "food",
+    "date": "2024-11-30"
+  },
+  {
+    "id": 10,
+    "title": "Mineral water",
+    "nominal": 5000,
+    "type": "expense",
+    "category": "food",
+    "date": "2024-11-30"
+  }
+]
