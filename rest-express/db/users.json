@@ -1,32 +1,21 @@
 [
   {
     "id": 1,
-    "name": "Andi",
-    "email": "andi@gmail.com",
-    "password": "andi123"
+    "name": "abdullah",
+    "email": "abdullah@email.com",
+    "password": "abdulullah123"
   },
   {
     "id": 2,
-    "name": "Budi",
-    "email": "budi@gmail.com",
-    "password": "budi123"
+    "name": " bagus",
+    "email": "bagus@email.com",
+    "password": "bagus123"
   },
-  {
-    "id": 3,
-    "name": "Caca",
-    "email": "caca@gmail.com",
-    "password": "caca123"
-  },
+  { "id": 3, "name": "cucu", "email": "cucu@email.com", "password": "cucu123" },
   {
     "id": 4,
-    "name": "Edi",
-    "email": "di@gmail.com",
-    "password": "edi123"
-  },
-  {
-    "id": 5,
-    "name": "Fufu",
-    "email": "fufu@gmail.com",
-    "password": "fufu123"
+    "name": "abcdefghijklmnopqrstuvwxyz",
+    "email": "abc@email.com",
+    "password": "abc123"
   }
 ]

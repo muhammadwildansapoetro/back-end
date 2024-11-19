@@ -16,9 +16,7 @@ export class ExpenseRouter {
 
     private initializeRoutes() {
         this.router.get('/', this.expenseController.getExpenses)
-        this.router.get('/total/by-date-range', this.expenseController.getTotalExpenseByDate)
-        this.router.get('/total/by-category', this.expenseController.getTotalExpenseByCategory)
-        this.router.post('/', this.expenseController.addExpenses)
+        this.router.post('/', this.expenseController.addExpense)
 
         this.router.get(
             '/:id',

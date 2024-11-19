@@ -2,7 +2,7 @@ export interface IExpense {
     id: number;
     title: string,
     nominal: number,
-    type: string,
-    category: string,
+    type: "income" | "expense",
+    category: "salary" | "food" | "transport",
     date: string
 }
