@@ -18,8 +18,28 @@ model User {
   id        Int      @id @default(autoincrement())
   username  String   @unique
   email     String   @unique
-  passwrod  String
-  avatar    String
+  password  String
+  avatar    String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  blog      Blog[]
+}
+
+enum BlogCategory {
+  Agriculture
+  Programming
+  GIS
+}
+
+model Blog {
+  id        String       @id @default(uuid())
+  title     String       @unique
+  slug      String       @unique
+  category  BlogCategory
+  content   String       @db.Text
+  image     String
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  userId    Int // Jika user-blog = one-to=one, maka @unique
+  user      User         @relation(fields: [userId], references: [id])
 }
