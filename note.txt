@@ -1,0 +1,35 @@
+Create Express + Typescript
+
+1. create folder
+
+    mdkir folder-name
+
+2. cd folder-name
+
+3. npm init --y
+
+4. npm i typescript ts-node ts-node-dev @types/node @types/express @types/cors -D
+
+    -D artinya masuk ke devDependencies = hanya diperlukan pada development, tidak diperlokan pada deployment
+
+5. npm i express cors 
+
+6. tsc --init
+
+7. go to file ts.conig.json
+    line 60 
+    turn off comment "outDir"
+    insert "./dist" 
+
+8. insert into file package.json:
+
+    "build": "tsc",
+    "start": "npm run build && node dist/index.js",
+    "dev": "ts-node-dev src/index.ts",
+
+9. create file .gitignore
+
+node_modules
+package-lock.json
+dist
+.env
