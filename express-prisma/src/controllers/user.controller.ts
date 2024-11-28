@@ -27,11 +27,9 @@ export class UserController {
         take: +limit,
         skip: +limit * (+page - 1),
       });
-
       res.status(200).send({ total_page, page, users });
     } catch (error) {
       console.log(error);
-
       res.status(400).send(error);
     }
   }
@@ -40,11 +38,9 @@ export class UserController {
     try {
       const { id } = req.params;
       const user = await prisma.user.findUnique({ where: { id: +id } });
-
       res.status(200).send({ user });
     } catch (error) {
       console.log(error);
-
       res.status(400).send(error);
     }
   }
@@ -52,11 +48,9 @@ export class UserController {
   async createUser(req: Request, res: Response) {
     try {
       await prisma.user.create({ data: req.body });
-
       res.status(201).send("User Created Successfully");
     } catch (error) {
       console.log(error);
-
       res.status(400).send(error);
     }
   }
@@ -65,7 +59,6 @@ export class UserController {
     try {
       const { id } = req.params;
       await prisma.user.update({ data: req.body, where: { id: +id } });
-
       res.status(200).send(`User ID ${id} Updated Successfully`);
     } catch (error) {
       console.log(error);
@@ -77,11 +70,9 @@ export class UserController {
     try {
       const { id } = req.params;
       await prisma.user.delete({ where: { id: +id } });
-
       res.status(200).send(`User ID ${id} Deleted Successfully`);
     } catch (error) {
       console.log(error);
-
       res.status(400).send(error);
     }
   }
