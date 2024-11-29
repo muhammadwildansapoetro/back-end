@@ -5,8 +5,9 @@ import { Prisma } from "@prisma/client";
 export class UserController {
   async getUsers(req: Request, res: Response) {
     try {
-      const { search, page = 1, limit = 3 } = req.query;
+      console.log(req.user);
 
+      const { search, page = 1, limit = 3 } = req.query;
       const filter: Prisma.UserWhereInput = {};
       if (search) {
         // filter.username = { contains: search as string }
@@ -36,8 +37,9 @@ export class UserController {
 
   async getUserById(req: Request, res: Response) {
     try {
-      const { id } = req.params;
-      const user = await prisma.user.findUnique({ where: { id: +id } });
+      const user = await prisma.user.findUnique({
+        where: { id: req.user?.id },
+      });
       res.status(200).send({ user });
     } catch (error) {
       console.log(error);
@@ -48,7 +50,7 @@ export class UserController {
   async createUser(req: Request, res: Response) {
     try {
       await prisma.user.create({ data: req.body });
-      res.status(201).send("User Created Successfully");
+      res.status(201).send("User Created Successfully ✅");
     } catch (error) {
       console.log(error);
       res.status(400).send(error);
@@ -59,7 +61,7 @@ export class UserController {
     try {
       const { id } = req.params;
       await prisma.user.update({ data: req.body, where: { id: +id } });
-      res.status(200).send(`User ID ${id} Updated Successfully`);
+      res.status(200).send(`User ID ${id} Updated Successfully ✅`);
     } catch (error) {
       console.log(error);
       res.status(400).send(error);
@@ -70,7 +72,7 @@ export class UserController {
     try {
       const { id } = req.params;
       await prisma.user.delete({ where: { id: +id } });
-      res.status(200).send(`User ID ${id} Deleted Successfully`);
+      res.status(200).send(`User ID ${id} Deleted Successfully ✅`);
     } catch (error) {
       console.log(error);
       res.status(400).send(error);
