@@ -5,10 +5,9 @@ import { Prisma } from "@prisma/client";
 export class UserController {
   async getUsers(req: Request, res: Response) {
     try {
-      console.log(req.user);
-
       const { search, page = 1, limit = 3 } = req.query;
       const filter: Prisma.UserWhereInput = {};
+
       if (search) {
         // filter.username = { contains: search as string }
         filter.OR = [
@@ -16,6 +15,7 @@ export class UserController {
           { email: search as string },
         ];
       }
+
       const count_user = await prisma.user.aggregate({
         _count: { _all: true },
       });
@@ -28,6 +28,7 @@ export class UserController {
         take: +limit,
         skip: +limit * (+page - 1),
       });
+
       res.status(200).send({ total_page, page, users });
     } catch (error) {
       console.log(error);

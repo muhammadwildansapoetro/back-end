@@ -10,8 +10,8 @@ export class AuthController {
       const { password, confirmPassword, username, email } = req.body;
       const user = await findUser(username, email);
 
-      if (user) throw "Username or email has been used";
-      if (password != confirmPassword) throw "Password not match";
+      if (user) throw { message: "Username or email has been used" };
+      if (password != confirmPassword) throw { message: "Password not match" };
 
       const salt = await genSalt(10);
       const hashPassword = await hash(password, salt);
@@ -19,30 +19,37 @@ export class AuthController {
       await prisma.user.create({
         data: { username, email, password: hashPassword },
       });
-      res.status(200).send("Register Successfully ✅");
+      res.status(200).send({ message: "Register Successfully ✅" });
     } catch (error) {
       console.log(error);
       res.status(400).send(error);
     }
   }
-  async loginUser(req: Request, res: Response) {
+  async signInUser(req: Request, res: Response) {
     try {
       const { data, password } = req.body;
       const user = await findUser(data, data);
 
-      if (!user) throw "Account not found";
+      if (!user) throw { message: "Account not found" };
 
       const isValidPassword = await compare(password, user.password);
-      if (!isValidPassword) throw "Incorrect Password";
+      if (!isValidPassword) throw { message: "Incorrect Password" };
 
       const payload = { id: user.id, role: user.role };
-      const token = sign(payload, "blog-app", { expiresIn: "10m" });
+      const token = sign(payload, "blog-app", { expiresIn: "1d" });
 
-      res.status(200).send({
-        message: "Login Successfully ✅",
-        user,
-        token,
-      });
+      res
+        .status(200)
+        .cookie("token", token, {
+          httpOnly: true,
+          maxAge: 24 * 60 * 60 * 1000,
+          path: "/",
+          secure: process.env.NODE_ENV === "production",
+        })
+        .send({
+          message: "Sign in Successfully ✅",
+          user,
+        });
     } catch (error) {
       console.log(error);
       res.status(400).send(error);

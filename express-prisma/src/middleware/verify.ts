@@ -9,7 +9,8 @@ export const verifyToken = async (
   next: NextFunction
 ) => {
   try {
-    const token = req.header("Authorization")?.replace("Bearer ", "");
+    // const token = req.header("Authorization")?.replace("Bearer ", "");
+    const token = req.cookies?.token;
     if (!token) throw "Unauthorize";
 
     const verifiedUser = verify(token, "blog-app");
