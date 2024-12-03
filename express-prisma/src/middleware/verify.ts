@@ -12,7 +12,7 @@ export const verifyToken = async (
     const token = req.cookies?.token;
     if (!token) throw "Unauthorize";
 
-    const verifiedUser = verify(token, "blog-app");
+    const verifiedUser = verify(token, process.env.JWT_KEY!);
 
     req.user = verifiedUser as UserPayload;
 

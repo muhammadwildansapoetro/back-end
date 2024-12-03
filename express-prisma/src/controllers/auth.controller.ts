@@ -2,8 +2,11 @@ import { Request, Response } from "express";
 import prisma from "../prisma";
 import { genSalt, hash, compare } from "bcrypt";
 import { findUser } from "../services/user.service";
-import { sign } from "jsonwebtoken";
+import { sign, verify } from "jsonwebtoken";
 import { transporter } from "../services/mailer";
+import path from "path";
+import fs from "fs";
+import handlebars from "handlebars";
 
 export class AuthController {
   async registerUser(req: Request, res: Response) {
@@ -12,28 +15,43 @@ export class AuthController {
       const user = await findUser(username, email);
 
       if (user) throw { message: "Username or email has been used" };
-      // if (password != confirmPassword) throw { message: "Password not match" };
+      if (password != confirmPassword) throw { message: "Password not match" };
 
       const salt = await genSalt(10);
       const hashPassword = await hash(password, salt);
 
-      await prisma.user.create({
+      const newUser = await prisma.user.create({
         data: { username, email, password: hashPassword },
+      });
+
+      const payload = { id: newUser.id, role: newUser.role };
+      const token = sign(payload, process.env.JWT_KEY!, { expiresIn: "10m" });
+      const link = `http://localhost:3000/verify/${token}`;
+
+      const templatePath = path.join(__dirname, "../templates", "verify.hbs");
+      const templateSource = fs.readFileSync(templatePath, "utf-8");
+      const compiledTemplate = handlebars.compile(templateSource);
+      const html = compiledTemplate({
+        username,
+        link: link,
       });
 
       await transporter.sendMail({
         from: "muhwilsap@gmail.com",
         to: email,
         subject: "Welcome To Ngariung Blog",
-        html: "<h1>Thank you</h1>",
+        html: html,
       });
 
-      res.status(200).send({ message: "Register Successfully ✅" });
+      res.status(200).send({
+        message: "Register success, please check your email finish user",
+      });
     } catch (error) {
       console.log(error);
       res.status(400).send(error);
     }
   }
+
   async signInUser(req: Request, res: Response) {
     try {
       const { data, password } = req.body;
@@ -70,9 +88,24 @@ export class AuthController {
           secure: process.env.NODE_ENV === "production",
         })
         .send({
-          message: "Sign in Successfully ✅",
+          message: "Sign in Successfully",
           user,
         });
+    } catch (error) {
+      console.log(error);
+      res.status(400).send(error);
+    }
+  }
+
+  async verifyUser(req: Request, res: Response) {
+    try {
+      const { token } = req.params;
+      const verifiedUser: any = verify(token, process.env.JWT_KEY!);
+      await prisma.user.update({
+        data: { isVerify: true },
+        where: { id: verifiedUser.id },
+      });
+      res.status(200).send({ message: "User verified successfully" });
     } catch (error) {
       console.log(error);
       res.status(400).send(error);
