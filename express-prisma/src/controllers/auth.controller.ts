@@ -3,15 +3,16 @@ import prisma from "../prisma";
 import { genSalt, hash, compare } from "bcrypt";
 import { findUser } from "../services/user.service";
 import { sign } from "jsonwebtoken";
+import { transporter } from "../services/mailer";
 
 export class AuthController {
   async registerUser(req: Request, res: Response) {
     try {
-      const { password, confirmPassword, username, email } = req.body;
+      const { username, email, password, confirmPassword } = req.body;
       const user = await findUser(username, email);
 
       if (user) throw { message: "Username or email has been used" };
-      if (password != confirmPassword) throw { message: "Password not match" };
+      // if (password != confirmPassword) throw { message: "Password not match" };
 
       const salt = await genSalt(10);
       const hashPassword = await hash(password, salt);
@@ -19,6 +20,14 @@ export class AuthController {
       await prisma.user.create({
         data: { username, email, password: hashPassword },
       });
+
+      await transporter.sendMail({
+        from: "muhwilsap@gmail.com",
+        to: email,
+        subject: "Welcome To Ngariung Blog",
+        html: "<h1>Thank you</h1>",
+      });
+
       res.status(200).send({ message: "Register Successfully ✅" });
     } catch (error) {
       console.log(error);
@@ -31,9 +40,23 @@ export class AuthController {
       const user = await findUser(data, data);
 
       if (!user) throw { message: "Account not found" };
+      if (user.isSuspend) throw { message: "Account suspended" };
+      if (!user.isVerify) throw { message: "Account not verified" };
 
       const isValidPassword = await compare(password, user.password);
-      if (!isValidPassword) throw { message: "Incorrect Password" };
+      if (!isValidPassword) {
+        await prisma.user.update({
+          data: { loginAttempt: { increment: 1 } },
+          where: { id: user.id },
+        });
+        if (user.loginAttempt == 2) {
+          await prisma.user.update({
+            data: { isSuspend: true },
+            where: { id: user.id },
+          });
+        }
+        throw { message: "Incorrect Password" };
+      }
 
       const payload = { id: user.id, role: user.role };
       const token = sign(payload, "blog-app", { expiresIn: "1d" });

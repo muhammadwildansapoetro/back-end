@@ -1,4 +1,3 @@
-import { log } from "console";
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
 import { UserPayload } from "../custom";

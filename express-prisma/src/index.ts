@@ -1,9 +1,9 @@
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import { UserRouter } from "./routers/user.router";
 import { BlogRouter } from "./routers/blog.router";
 import { AuthRouter } from "./routers/auth.router";
-import cookieParser from "cookie-parser";
 
 const PORT: number = 8000;
 
