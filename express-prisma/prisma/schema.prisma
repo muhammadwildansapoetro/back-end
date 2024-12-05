@@ -52,3 +52,8 @@ model Blog {
   userId    Int // Jika user-blog = one-to=one, maka @unique
   user      User         @relation(fields: [userId], references: [id])
 }
+
+model Event {
+  id       String   @id @default(uuid())
+  schedule DateTime
+}
