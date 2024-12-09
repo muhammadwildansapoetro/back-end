@@ -32,6 +32,7 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   blog         Blog[]
+  Order        Order[]
 }
 
 enum BlogCategory {
@@ -56,4 +57,21 @@ model Blog {
 model Event {
   id       String   @id @default(uuid())
   schedule DateTime
+}
+
+enum OrderStatus {
+  pending
+  paid
+  cancel
+}
+
+model Order {
+  id           Int         @id @default(autoincrement())
+  price        Int
+  status       OrderStatus @default(pending)
+  redirect_url String?
+  createdAt    DateTime    @default(now())
+  expiredAt    DateTime
+  userId       Int
+  user         User        @relation(fields: [userId], references: [id])
 }
