@@ -1,6 +1,7 @@
 import { prismaMock } from "../setup_test/singleton";
 import { getUser } from "../setup_test/function";
 
+// Mocking Dependencies with Jest
 test("Should return an array of users", async () => {
   const sampleUsers = [
     {

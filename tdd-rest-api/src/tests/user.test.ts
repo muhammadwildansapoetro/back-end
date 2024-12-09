@@ -3,6 +3,7 @@ import app from "..";
 import prisma from "../prisma";
 import nock from "nock";
 
+// Testing Express.ts Routes (Without mocking)
 describe("GET /api/users", () => {
   const sampleUsers = [
     {
@@ -57,6 +58,7 @@ describe("GET /api/users", () => {
   });
 });
 
+// Nock to intercept network call
 describe("GET /api/pokemons", () => {
   it("Should return an array of pokemons", async () => {
     const mockResponse = {
