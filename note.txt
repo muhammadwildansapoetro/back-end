@@ -14,18 +14,20 @@ Create Express + Typescript
 
 5. npm i express cors 
 
-6. tsc --init
 
-7. go to file ts.conig.json
-    line 60 
-    turn off comment "outDir"
-    insert "./dist" 
-
-8. insert into file package.json:
+6. insert into file package.json:
 
     "build": "tsc",
     "start": "npm run build && node dist/index.js",
     "dev": "ts-node-dev src/index.ts",
+
+
+6. tsc --init
+
+8. go to file ts.conig.json
+    line 60 
+    turn off comment "outDir"
+    insert "./dist" 
 
 9. create file .gitignore
 
@@ -33,3 +35,7 @@ node_modules
 package-lock.json
 dist
 .env
+
+10. npm i prisma
+
+11. npx prisma init
