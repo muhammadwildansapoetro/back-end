@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import prisma from "../prisma";
+import { cloudinaryUpload } from "../services/cloudinary";
 
 export class BlogController {
   async getBlogs(req: Request, res: Response) {
@@ -47,6 +48,30 @@ export class BlogController {
         },
       });
       res.status(200).send({ blog });
+    } catch (error) {
+      console.log(error);
+      res.status(400).send(error);
+    }
+  }
+
+  async createPost(req: Request, res: Response) {
+    try {
+      if (!req.file) throw { message: "image empty" };
+      const { secure_url } = await cloudinaryUpload(req.file, "blog");
+      const { title, slug, category, content } = req.body;
+
+      await prisma.blog.create({
+        data: {
+          title,
+          slug,
+          category,
+          content,
+          image: secure_url,
+          userId: req.user?.id!,
+        },
+      });
+
+      res.status(200).send({ message: "Post created successfully" });
     } catch (error) {
       console.log(error);
       res.status(400).send(error);

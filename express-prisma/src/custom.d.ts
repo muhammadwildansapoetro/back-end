@@ -1,5 +1,5 @@
 import "express";
-import { UserRole } from "@prisma/client";
+import { UserRole } from "../prisma/generated/client";
 
 export type UserPayload = {
   id: number;

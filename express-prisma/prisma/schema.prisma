@@ -6,6 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  output   = "./generated/client"
 }
 
 datasource db {
@@ -17,6 +18,18 @@ datasource db {
 enum UserRole {
   User
   Admin
+}
+
+enum BlogCategory {
+  Agriculture
+  Programming
+  GIS
+}
+
+enum OrderStatus {
+  pending
+  paid
+  cancel
 }
 
 model User {
@@ -35,18 +48,12 @@ model User {
   Order        Order[]
 }
 
-enum BlogCategory {
-  Agriculture
-  Programming
-  GIS
-}
-
 model Blog {
   id        String       @id @default(uuid())
   title     String       @unique
   slug      String       @unique
   category  BlogCategory
-  content   Json
+  content   String       @db.Text
   image     String
   createdAt DateTime     @default(now())
   updatedAt DateTime     @updatedAt
@@ -57,12 +64,6 @@ model Blog {
 model Event {
   id       String   @id @default(uuid())
   schedule DateTime
-}
-
-enum OrderStatus {
-  pending
-  paid
-  cancel
 }
 
 model Order {
