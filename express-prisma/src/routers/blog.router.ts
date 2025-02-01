@@ -18,7 +18,6 @@ export class BlogRouter {
     this.router.post(
       "/",
       verifyToken,
-      checkAdmin,
       uploader("memoryStorage", "blog-").single("image"),
       this.blogController.createPost
     );

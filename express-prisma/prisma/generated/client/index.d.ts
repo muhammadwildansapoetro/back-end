@@ -39,7 +39,8 @@ export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 export const BlogCategory: {
   Agriculture: 'Agriculture',
   Technology: 'Technology',
-  Football: 'Football'
+  Football: 'Football',
+  Other: 'Other'
 };
 
 export type BlogCategory = (typeof BlogCategory)[keyof typeof BlogCategory]

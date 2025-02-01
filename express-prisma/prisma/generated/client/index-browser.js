@@ -170,7 +170,8 @@ exports.UserRole = exports.$Enums.UserRole = {
 exports.BlogCategory = exports.$Enums.BlogCategory = {
   Agriculture: 'Agriculture',
   Technology: 'Technology',
-  Football: 'Football'
+  Football: 'Football',
+  Other: 'Other'
 };
 
 exports.Prisma.ModelName = {

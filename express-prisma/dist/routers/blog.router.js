@@ -13,7 +13,7 @@ class BlogRouter {
     }
     initializeRoutes() {
         this.router.get("/", this.blogController.getBlogs);
-        this.router.post("/", verify_1.verifyToken, verify_1.checkAdmin, (0, uploader_1.uploader)("memoryStorage", "blog-").single("image"), this.blogController.createPost);
+        this.router.post("/", verify_1.verifyToken, (0, uploader_1.uploader)("memoryStorage", "blog-").single("image"), this.blogController.createPost);
         this.router.get("/:slug", this.blogController.getBlogSlug);
     }
     getRouter() {

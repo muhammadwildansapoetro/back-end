@@ -24,6 +24,7 @@ enum BlogCategory {
   Agriculture
   Technology
   Football
+  Other
 }
 
 model User {
@@ -31,7 +32,7 @@ model User {
   username     String   @unique
   email        String   @unique
   password     String
-  avatar       String?
+  avatar       String?  @default("https://cdn-icons-png.flaticon.com/512/266/266033.png")
   role         UserRole @default(User)
   loginAttempt Int      @default(0)
   isSuspend    Boolean  @default(false)
