@@ -77,20 +77,13 @@ export class AuthController {
       }
 
       const payload = { id: user.id, role: user.role };
-      const token = sign(payload, "blog-app", { expiresIn: "1d" });
+      const token = sign(payload, process.env.JWT_KEY!, { expiresIn: "1d" });
 
-      res
-        .status(200)
-        .cookie("token", token, {
-          httpOnly: true,
-          maxAge: 24 * 60 * 60 * 1000,
-          path: "/",
-          secure: process.env.NODE_ENV === "production",
-        })
-        .send({
-          message: "Sign in Successfully",
-          user,
-        });
+      res.status(200).send({
+        message: "Sign in successfully",
+        user,
+        token,
+      });
     } catch (error) {
       console.log(error);
       res.status(400).send(error);
