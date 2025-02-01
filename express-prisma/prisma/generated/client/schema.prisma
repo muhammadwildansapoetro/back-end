@@ -22,14 +22,8 @@ enum UserRole {
 
 enum BlogCategory {
   Agriculture
-  Programming
-  GIS
-}
-
-enum OrderStatus {
-  pending
-  paid
-  cancel
+  Technology
+  Football
 }
 
 model User {
@@ -45,7 +39,6 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   blog         Blog[]
-  Order        Order[]
 }
 
 model Blog {
@@ -57,22 +50,6 @@ model Blog {
   image     String
   createdAt DateTime     @default(now())
   updatedAt DateTime     @updatedAt
-  userId    Int // Jika user-blog = one-to=one, maka @unique
+  userId    Int
   user      User         @relation(fields: [userId], references: [id])
-}
-
-model Event {
-  id       String   @id @default(uuid())
-  schedule DateTime
-}
-
-model Order {
-  id           Int         @id @default(autoincrement())
-  price        Int
-  status       OrderStatus @default(pending)
-  redirect_url String?
-  createdAt    DateTime    @default(now())
-  expiredAt    DateTime
-  userId       Int
-  user         User        @relation(fields: [userId], references: [id])
 }

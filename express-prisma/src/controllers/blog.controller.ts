@@ -33,7 +33,7 @@ export class BlogController {
     try {
       const { slug } = req.params;
       const blog = await prisma.blog.findUnique({
-        where: { slug: slug }, // karena nama key dan nama value sama, bisa ditulis { slug }
+        where: { slug: slug },
         select: {
           id: true,
           title: true,

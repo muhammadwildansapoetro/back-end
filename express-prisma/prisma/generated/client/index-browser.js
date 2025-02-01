@@ -148,21 +148,6 @@ exports.Prisma.BlogScalarFieldEnum = {
   userId: 'userId'
 };
 
-exports.Prisma.EventScalarFieldEnum = {
-  id: 'id',
-  schedule: 'schedule'
-};
-
-exports.Prisma.OrderScalarFieldEnum = {
-  id: 'id',
-  price: 'price',
-  status: 'status',
-  redirect_url: 'redirect_url',
-  createdAt: 'createdAt',
-  expiredAt: 'expiredAt',
-  userId: 'userId'
-};
-
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -184,21 +169,13 @@ exports.UserRole = exports.$Enums.UserRole = {
 
 exports.BlogCategory = exports.$Enums.BlogCategory = {
   Agriculture: 'Agriculture',
-  Programming: 'Programming',
-  GIS: 'GIS'
-};
-
-exports.OrderStatus = exports.$Enums.OrderStatus = {
-  pending: 'pending',
-  paid: 'paid',
-  cancel: 'cancel'
+  Technology: 'Technology',
+  Football: 'Football'
 };
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Blog: 'Blog',
-  Event: 'Event',
-  Order: 'Order'
+  Blog: 'Blog'
 };
 
 /**
